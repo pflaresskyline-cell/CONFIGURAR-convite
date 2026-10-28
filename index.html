@@ -1,0 +1,3337 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Painel - Convite Dudu</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f3f4f6;
+    color:#1f2937;
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+#loginTela{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #31552b,
+        #173515
+    );
+
+}
+
+
+.login-box{
+
+    width:100%;
+    max-width:420px;
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:22px;
+
+    box-shadow:
+    0 25px 70px
+    rgba(0,0,0,.3);
+
+}
+
+
+.logo{
+
+    text-align:center;
+
+    font-size:60px;
+
+    margin-bottom:10px;
+
+}
+
+
+.login-box h1{
+
+    text-align:center;
+
+    color:#31552b;
+
+    margin-bottom:8px;
+
+}
+
+
+.login-box p{
+
+    text-align:center;
+
+    color:#777;
+
+    margin-bottom:28px;
+
+}
+
+
+.campo{
+
+    margin-bottom:18px;
+
+}
+
+
+.campo label{
+
+    display:block;
+
+    font-weight:bold;
+
+    margin-bottom:7px;
+
+}
+
+
+.campo input,
+.campo textarea{
+
+    width:100%;
+
+    padding:13px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    outline:none;
+
+}
+
+
+.campo textarea{
+
+    min-height:110px;
+
+    resize:vertical;
+
+}
+
+
+.campo input:focus,
+.campo textarea:focus{
+
+    border-color:#31552b;
+
+    box-shadow:
+    0 0 0 3px
+    rgba(49,85,43,.1);
+
+}
+
+
+#botaoEntrar{
+
+    width:100%;
+
+    padding:14px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:#31552b;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+#erroLogin{
+
+    text-align:center;
+
+    color:#dc2626;
+
+    margin-top:15px;
+
+    min-height:20px;
+
+}
+
+
+/* =====================================================
+   PAINEL
+===================================================== */
+
+#painel{
+
+    display:none;
+
+}
+
+
+.topo{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+    background:#31552b;
+
+    color:white;
+
+    padding:18px 25px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    box-shadow:
+    0 3px 15px
+    rgba(0,0,0,.15);
+
+}
+
+
+.topo h1{
+
+    font-size:20px;
+
+}
+
+
+.botao-sair{
+
+    background:#b18328;
+
+    color:white;
+
+    border:0;
+
+    padding:10px 18px;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+
+.container{
+
+    width:100%;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:25px;
+
+}
+
+
+.card{
+
+    background:white;
+
+    padding:25px;
+
+    margin-bottom:20px;
+
+    border-radius:18px;
+
+    box-shadow:
+    0 5px 20px
+    rgba(0,0,0,.07);
+
+}
+
+
+.card h2{
+
+    color:#31552b;
+
+    margin-bottom:20px;
+
+}
+
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:18px;
+
+}
+
+
+/* =====================================================
+   BOTÕES
+===================================================== */
+
+.acoes{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+}
+
+
+.botao{
+
+    border:0;
+
+    padding:13px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+}
+
+
+.botao:hover{
+
+    opacity:.9;
+
+}
+
+
+.botao:disabled{
+
+    opacity:.5;
+
+    cursor:not-allowed;
+
+}
+
+
+.salvar{
+
+    background:#31552b;
+
+    color:white;
+
+}
+
+
+.visualizar{
+
+    background:#b18328;
+
+    color:white;
+
+}
+
+
+.upload{
+
+    background:#31552b;
+
+    color:white;
+
+}
+
+
+.excluir{
+
+    background:#b91c1c;
+
+    color:white;
+
+    padding:8px 12px;
+
+    font-size:13px;
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+#status{
+
+    display:none;
+
+    padding:15px;
+
+    margin-bottom:20px;
+
+    border-radius:10px;
+
+    white-space:pre-line;
+
+    font-weight:bold;
+
+}
+
+
+.status-sucesso{
+
+    display:block !important;
+
+    background:#dcfce7;
+
+    color:#166534;
+
+}
+
+
+.status-erro{
+
+    display:block !important;
+
+    background:#fee2e2;
+
+    color:#991b1b;
+
+}
+
+
+.status-info{
+
+    display:block !important;
+
+    background:#dbeafe;
+
+    color:#1e40af;
+
+}
+
+
+/* =====================================================
+   UPLOAD
+===================================================== */
+
+.upload-box{
+
+    border:2px dashed #cbd5e1;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    background:#fafafa;
+
+}
+
+
+.upload-box input{
+
+    width:100%;
+
+    margin:15px 0;
+
+}
+
+
+.preview-principal{
+
+    width:240px;
+
+    height:240px;
+
+    margin:20px auto;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    background:#e5e7eb;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#777;
+
+}
+
+
+.preview-principal img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+
+.lista-arquivos{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:15px;
+
+    margin-top:20px;
+
+}
+
+
+.arquivo{
+
+    background:#f9fafb;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:12px;
+
+    padding:10px;
+
+    text-align:center;
+
+}
+
+
+.arquivo img{
+
+    width:100%;
+
+    aspect-ratio:1/1;
+
+    object-fit:cover;
+
+    border-radius:8px;
+
+    margin-bottom:8px;
+
+}
+
+
+.arquivo-nome{
+
+    font-size:12px;
+
+    word-break:break-all;
+
+    margin-bottom:8px;
+
+}
+
+
+.musica-item{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    padding:15px;
+
+    background:#f9fafb;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:12px;
+
+    margin-top:10px;
+
+}
+
+
+.musica-item audio{
+
+    max-width:300px;
+
+}
+
+
+/* =====================================================
+   RESPONSIVO
+===================================================== */
+
+@media(max-width:800px){
+
+    .lista-arquivos{
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+    }
+
+}
+
+
+@media(max-width:700px){
+
+    .grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .container{
+
+        padding:15px;
+
+    }
+
+
+    .card{
+
+        padding:18px;
+
+    }
+
+
+    .topo{
+
+        padding:15px;
+
+    }
+
+
+    .topo h1{
+
+        font-size:16px;
+
+    }
+
+}
+
+
+@media(max-width:450px){
+
+    .lista-arquivos{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<section id="loginTela">
+
+    <div class="login-box">
+
+        <div class="logo">
+            🎂
+        </div>
+
+        <h1>
+            Painel do Dudu
+        </h1>
+
+        <p>
+            Administração do convite
+        </p>
+
+
+        <div class="campo">
+
+            <label>
+                Login
+            </label>
+
+            <input
+                id="login"
+                type="text"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>
+                Senha
+            </label>
+
+            <input
+                id="senha"
+                type="password"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <button
+            id="botaoEntrar"
+            type="button"
+        >
+
+            🔐 ENTRAR
+
+        </button>
+
+
+        <div id="erroLogin"></div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PAINEL
+===================================================== -->
+
+<section id="painel">
+
+
+<header class="topo">
+
+    <h1>
+        🎂 Painel Administrativo — Dudu
+    </h1>
+
+
+    <button
+        class="botao-sair"
+        type="button"
+        onclick="sair()"
+    >
+
+        SAIR
+
+    </button>
+
+</header>
+
+
+
+<main class="container">
+
+
+<div id="status"></div>
+
+
+
+<!-- =====================================================
+     DADOS
+===================================================== -->
+
+<section class="card">
+
+    <h2>
+        👶 Dados do aniversariante
+    </h2>
+
+
+    <div class="grid">
+
+        <div class="campo">
+
+            <label>
+                Nome
+            </label>
+
+            <input
+                id="nome"
+                type="text"
+            >
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>
+                Idade
+            </label>
+
+            <input
+                id="idade"
+                type="text"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     TEXTOS
+===================================================== -->
+
+<section class="card">
+
+    <h2>
+        📝 Textos
+    </h2>
+
+
+    <div class="campo">
+
+        <label>
+            Título principal
+        </label>
+
+        <input
+            id="titulo"
+            type="text"
+        >
+
+    </div>
+
+
+    <div class="campo">
+
+        <label>
+            Subtítulo
+        </label>
+
+        <input
+            id="subtitulo"
+            type="text"
+        >
+
+    </div>
+
+
+    <div class="campo">
+
+        <label>
+            Texto de abertura
+        </label>
+
+        <textarea
+            id="texto_abertura"
+        ></textarea>
+
+    </div>
+
+
+    <div class="campo">
+
+        <label>
+            Texto de confirmação
+        </label>
+
+        <textarea
+            id="texto_confirmacao"
+        ></textarea>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     EVENTO
+===================================================== -->
+
+<section class="card">
+
+    <h2>
+        📅 Evento
+    </h2>
+
+
+    <div class="grid">
+
+        <div class="campo">
+
+            <label>
+                Data
+            </label>
+
+            <input
+                id="data_evento"
+                type="date"
+            >
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>
+                Horário
+            </label>
+
+            <input
+                id="horario_evento"
+                type="time"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     LOCAL
+===================================================== -->
+
+<section class="card">
+
+    <h2>
+        📍 Local
+    </h2>
+
+
+    <div class="campo">
+
+        <label>
+            Endereço
+        </label>
+
+        <input
+            id="endereco"
+            type="text"
+        >
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="campo">
+
+            <label>
+                Bairro
+            </label>
+
+            <input
+                id="bairro"
+                type="text"
+            >
+
+        </div>
+
+
+        <div class="campo">
+
+            <label>
+                Cidade
+            </label>
+
+            <input
+                id="cidade"
+                type="text"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOTO PRINCIPAL
+===================================================== -->
+
+<section class="card">
+
+    <h2>
+        🖼️ Foto principal
+    </h2>
+
+
+    <div class="upload-box">
+
+        <p>
+            Selecione a foto que aparecerá
+            na abertura do convite.
+        </p>
+
+
+        <div class="preview-principal">
+
+            <span id="textoSemFoto">
+                📷 Nenhuma foto
+            </span>
+
+
+            <img
+                id="previewPrincipal"
+                alt="Foto principal"
+                style="display:none;"
+            >
+
+        </div>
+
+
+        <input
+            id="arquivoPrincipal"
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+        >
+
+
+        <button
+            id="botaoUploadPrincipal"
+            class="botao upload"
+            type="button"
+            onclick="uploadFotoPrincipal()"
+        >
+
+            ⬆️ ENVIAR FOTO PRINCIPAL
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     GALERIA
+===================================================== -->
+
+<section class="card">
+
+    <h2>
+        📸 Galeria de fotos
+    </h2>
+
+
+    <div class="upload-box">
+
+        <p>
+            Selecione várias fotos para a galeria.
+        </p>
+
+
+        <input
+            id="arquivosGaleria"
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            multiple
+        >
+
+
+        <button
+            class="botao upload"
+            type="button"
+            onclick="uploadGaleria()"
+        >
+
+            ⬆️ ENVIAR FOTOS
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="listaGaleria"
+        class="lista-arquivos"
+    ></div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MÚSICA
+===================================================== -->
+
+<section class="card">
+
+    <h2>
+        🎵 Música
+    </h2>
+
+
+    <div class="upload-box">
+
+        <p>
+            Envie uma música para o convite.
+        </p>
+
+
+        <input
+            id="arquivoMusica"
+            type="file"
+            accept=".mp3,.wav,.ogg,.m4a,audio/*"
+        >
+
+
+        <button
+            class="botao upload"
+            type="button"
+            onclick="uploadMusica()"
+        >
+
+            ⬆️ ENVIAR MÚSICA
+
+        </button>
+
+    </div>
+
+
+    <div id="listaMusicas"></div>
+
+</section>
+
+
+
+<!-- =====================================================
+     AÇÕES
+===================================================== -->
+
+<section class="card">
+
+    <h2>
+        ⚙️ Ações
+    </h2>
+
+
+    <div class="acoes">
+
+        <button
+            class="botao salvar"
+            type="button"
+            onclick="salvar()"
+        >
+
+            💾 SALVAR ALTERAÇÕES
+
+        </button>
+
+
+        <button
+            class="botao visualizar"
+            type="button"
+            onclick="visualizar()"
+        >
+
+            👁️ VISUALIZAR CONVITE
+
+        </button>
+
+    </div>
+
+</section>
+
+
+</main>
+
+</section>
+
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+/* =====================================================
+   CONFIGURAÇÃO SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+'https://wtujaawfxmfqgvvwkjce.supabase.co';
+
+
+const SUPABASE_KEY =
+'sb_publishable_Tgu_ZkuqGcDdRxeisegrQQ_DU1-QKPx';
+
+
+let banco = null;
+
+let convite = null;
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+const LOGIN_CORRETO = "dudu";
+
+const SENHA_CORRETA = "102104";
+
+
+document
+.getElementById("botaoEntrar")
+.addEventListener(
+    "click",
+    fazerLogin
+);
+
+
+document
+.getElementById("senha")
+.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            fazerLogin();
+
+        }
+
+    }
+);
+
+
+
+function fazerLogin(){
+
+    const login =
+        document
+        .getElementById("login")
+        .value
+        .trim();
+
+
+    const senha =
+        document
+        .getElementById("senha")
+        .value;
+
+
+    const erro =
+        document
+        .getElementById("erroLogin");
+
+
+    erro.innerText = "";
+
+
+    if(
+        login === LOGIN_CORRETO
+        &&
+        senha === SENHA_CORRETA
+    ){
+
+        sessionStorage.setItem(
+            "dudu_admin_logado",
+            "true"
+        );
+
+
+        document
+        .getElementById("loginTela")
+        .style.display =
+            "none";
+
+
+        document
+        .getElementById("painel")
+        .style.display =
+            "block";
+
+
+        iniciar();
+
+    }
+
+    else{
+
+        erro.innerText =
+            "❌ Login ou senha incorretos.";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   INICIAR SISTEMA
+===================================================== */
+
+async function iniciar(){
+
+    try{
+
+        console.log(
+            "Inicializando Supabase..."
+        );
+
+
+        banco =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        console.log(
+            "SUPABASE INICIALIZADO:",
+            banco
+        );
+
+
+        mostrarStatus(
+            "⏳ Carregando convite...",
+            "info"
+        );
+
+
+        await carregarConvite();
+
+
+        await carregarGaleria();
+
+
+        await carregarMusicas();
+
+
+        mostrarStatus(
+            "✅ Sistema carregado.",
+            "sucesso"
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        mostrarStatus(
+            "❌ Erro ao iniciar:\n\n"
+            +
+            error.message,
+            "erro"
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CARREGAR CONVITE
+===================================================== */
+
+async function carregarConvite(){
+
+    console.log(
+        "Buscando convite dudu-1-ano..."
+    );
+
+
+    const resultado =
+        await banco
+
+        .from("convites")
+
+        .select("*")
+
+        .eq(
+            "slug",
+            "dudu-1-ano"
+        )
+
+        .maybeSingle();
+
+
+    console.log(
+        "Resultado convite:",
+        resultado
+    );
+
+
+    if(resultado.error){
+
+        throw new Error(
+            "Erro ao carregar convite:\n"
+            +
+            resultado.error.message
+        );
+
+    }
+
+
+    if(!resultado.data){
+
+        throw new Error(
+            "Convite 'dudu-1-ano' não encontrado na tabela convites."
+        );
+
+    }
+
+
+    convite =
+        resultado.data;
+
+
+    window.convite =
+        resultado.data;
+
+
+    preencherFormulario(
+        convite
+    );
+
+
+    carregarFotoPrincipal();
+
+}
+
+
+
+/* =====================================================
+   PREENCHER FORMULÁRIO
+===================================================== */
+
+function preencherFormulario(data){
+
+    document
+    .getElementById("nome")
+    .value =
+        data.nome || "";
+
+
+    document
+    .getElementById("idade")
+    .value =
+        data.idade || "";
+
+
+    document
+    .getElementById("titulo")
+    .value =
+        data.titulo || "";
+
+
+    document
+    .getElementById("subtitulo")
+    .value =
+        data.subtitulo || "";
+
+
+    document
+    .getElementById("texto_abertura")
+    .value =
+        data.texto_abertura || "";
+
+
+    document
+    .getElementById("texto_confirmacao")
+    .value =
+        data.texto_confirmacao || "";
+
+
+    document
+    .getElementById("data_evento")
+    .value =
+        data.data_evento || "";
+
+
+    document
+    .getElementById("horario_evento")
+    .value =
+        data.horario_evento
+        ?
+        data.horario_evento.substring(
+            0,
+            5
+        )
+        :
+        "";
+
+
+    document
+    .getElementById("endereco")
+    .value =
+        data.endereco || "";
+
+
+    document
+    .getElementById("bairro")
+    .value =
+        data.bairro || "";
+
+
+    document
+    .getElementById("cidade")
+    .value =
+        data.cidade || "";
+
+}
+
+
+
+/* =====================================================
+   SALVAR DADOS
+===================================================== */
+
+async function salvar(){
+
+    try{
+
+        if(!banco){
+
+            throw new Error(
+                "Supabase não está inicializado."
+            );
+
+        }
+
+
+        if(!convite){
+
+            throw new Error(
+                "Convite não foi carregado."
+            );
+
+        }
+
+
+        mostrarStatus(
+            "⏳ Salvando alterações...",
+            "info"
+        );
+
+
+        const dados = {
+
+            nome:
+                document
+                .getElementById("nome")
+                .value
+                .trim(),
+
+            idade:
+                document
+                .getElementById("idade")
+                .value
+                .trim(),
+
+            titulo:
+                document
+                .getElementById("titulo")
+                .value
+                .trim(),
+
+            subtitulo:
+                document
+                .getElementById("subtitulo")
+                .value
+                .trim(),
+
+            texto_abertura:
+                document
+                .getElementById("texto_abertura")
+                .value
+                .trim(),
+
+            texto_confirmacao:
+                document
+                .getElementById("texto_confirmacao")
+                .value
+                .trim(),
+
+            data_evento:
+                document
+                .getElementById("data_evento")
+                .value
+                ||
+                null,
+
+            horario_evento:
+                document
+                .getElementById("horario_evento")
+                .value
+                ||
+                null,
+
+            endereco:
+                document
+                .getElementById("endereco")
+                .value
+                .trim(),
+
+            bairro:
+                document
+                .getElementById("bairro")
+                .value
+                .trim(),
+
+            cidade:
+                document
+                .getElementById("cidade")
+                .value
+                .trim()
+
+        };
+
+
+        console.log(
+            "Dados para salvar:",
+            dados
+        );
+
+
+        const resultado =
+            await banco
+
+            .from("convites")
+
+            .update(dados)
+
+            .eq(
+                "id",
+                convite.id
+            )
+
+            .select("*")
+            .single();
+
+
+        console.log(
+            "Resultado salvar:",
+            resultado
+        );
+
+
+        if(resultado.error){
+
+            throw new Error(
+                resultado.error.message
+            );
+
+        }
+
+
+        convite =
+            resultado.data;
+
+
+        window.convite =
+            resultado.data;
+
+
+        mostrarStatus(
+            "✅ ALTERAÇÕES SALVAS COM SUCESSO!",
+            "sucesso"
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Erro salvar:",
+            error
+        );
+
+
+        mostrarStatus(
+            "❌ ERRO AO SALVAR:\n\n"
+            +
+            error.message,
+            "erro"
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   FOTO PRINCIPAL
+===================================================== */
+
+async function uploadFotoPrincipal(){
+
+    console.log(
+        "================================="
+    );
+
+    console.log(
+        "INÍCIO DO UPLOAD DA FOTO"
+    );
+
+    console.log(
+        "================================="
+    );
+
+
+    const input =
+        document
+        .getElementById(
+            "arquivoPrincipal"
+        );
+
+
+    const botao =
+        document
+        .getElementById(
+            "botaoUploadPrincipal"
+        );
+
+
+    if(!input){
+
+        alert(
+            "ERRO: campo de arquivo não encontrado."
+        );
+
+        return;
+
+    }
+
+
+    const arquivo =
+        input.files[0];
+
+
+    console.log(
+        "Arquivo selecionado:",
+        arquivo
+    );
+
+
+    if(!arquivo){
+
+        alert(
+            "⚠️ Selecione uma foto primeiro."
+        );
+
+        return;
+
+    }
+
+
+    if(!banco){
+
+        alert(
+            "❌ Supabase não foi inicializado."
+        );
+
+        return;
+
+    }
+
+
+    if(!convite){
+
+        alert(
+            "❌ Convite não foi carregado."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        botao.disabled =
+            true;
+
+
+        botao.innerText =
+            "⏳ ENVIANDO...";
+
+
+        mostrarStatus(
+            "⏳ Enviando foto para o Storage...",
+            "info"
+        );
+
+
+        /*
+        =================================================
+        VERIFICAR TIPO
+        =================================================
+        */
+
+        const tiposPermitidos = [
+
+            "image/jpeg",
+
+            "image/png",
+
+            "image/webp",
+
+            "image/gif"
+
+        ];
+
+
+        if(
+            !tiposPermitidos.includes(
+                arquivo.type
+            )
+        ){
+
+            throw new Error(
+                "Formato não permitido.\n\n"
+                +
+                "Use JPG, PNG, WEBP ou GIF."
+            );
+
+        }
+
+
+        /*
+        =================================================
+        LIMITE 10 MB
+        =================================================
+        */
+
+        if(
+            arquivo.size >
+            10 * 1024 * 1024
+        ){
+
+            throw new Error(
+                "A imagem é muito grande.\n\n"
+                +
+                "Limite: 10 MB."
+            );
+
+        }
+
+
+        /*
+        =================================================
+        NOME DO ARQUIVO
+        =================================================
+        */
+
+        let extensao =
+            arquivo.name
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+        if(
+            extensao === "jpeg"
+        ){
+
+            extensao =
+                "jpg";
+
+        }
+
+
+        const nomeArquivo =
+            "principal-"
+            +
+            Date.now()
+            +
+            "."
+            +
+            extensao;
+
+
+        const caminho =
+            "dudu-1-ano/"
+            +
+            nomeArquivo;
+
+
+        console.log(
+            "Bucket:",
+            "imagens"
+        );
+
+
+        console.log(
+            "Caminho:",
+            caminho
+        );
+
+
+        /*
+        =================================================
+        UPLOAD
+        =================================================
+        */
+
+        const resultadoUpload =
+            await banco
+
+            .storage
+
+            .from("imagens")
+
+            .upload(
+                caminho,
+                arquivo,
+                {
+
+                    cacheControl:
+                        "3600",
+
+                    upsert:
+                        true,
+
+                    contentType:
+                        arquivo.type
+
+                }
+            );
+
+
+        console.log(
+            "Resultado upload:",
+            resultadoUpload
+        );
+
+
+        if(
+            resultadoUpload.error
+        ){
+
+            throw new Error(
+                "ERRO NO STORAGE:\n\n"
+                +
+                resultadoUpload.error.message
+            );
+
+        }
+
+
+        /*
+        =================================================
+        URL
+        =================================================
+        */
+
+        const resultadoURL =
+            banco
+
+            .storage
+
+            .from("imagens")
+
+            .getPublicUrl(
+                caminho
+            );
+
+
+        console.log(
+            "URL:",
+            resultadoURL
+        );
+
+
+        if(
+            resultadoURL.error
+        ){
+
+            throw new Error(
+                resultadoURL.error.message
+            );
+
+        }
+
+
+        const publicUrl =
+            resultadoURL
+            .data
+            .publicUrl;
+
+
+        console.log(
+            "URL pública:",
+            publicUrl
+        );
+
+
+        if(!publicUrl){
+
+            throw new Error(
+                "Não foi possível obter a URL pública da imagem."
+            );
+
+        }
+
+
+        /*
+        =================================================
+        SALVAR URL NA TABELA
+        =================================================
+        */
+
+        mostrarStatus(
+            "⏳ Foto enviada. Salvando no convite...",
+            "info"
+        );
+
+
+        const resultadoBanco =
+            await banco
+
+            .from("convites")
+
+            .update({
+
+                foto_principal:
+                    publicUrl
+
+            })
+
+            .eq(
+                "id",
+                convite.id
+            )
+
+            .select("*")
+            .single();
+
+
+        console.log(
+            "Resultado banco:",
+            resultadoBanco
+        );
+
+
+        if(
+            resultadoBanco.error
+        ){
+
+            throw new Error(
+                "A foto foi enviada ao Storage, mas não foi possível salvar no convite.\n\n"
+                +
+                resultadoBanco.error.message
+            );
+
+        }
+
+
+        /*
+        =================================================
+        ATUALIZAR OBJETO
+        =================================================
+        */
+
+        convite =
+            resultadoBanco.data;
+
+
+        window.convite =
+            resultadoBanco.data;
+
+
+        /*
+        =================================================
+        PREVIEW
+        =================================================
+        */
+
+        const preview =
+            document
+            .getElementById(
+                "previewPrincipal"
+            );
+
+
+        const texto =
+            document
+            .getElementById(
+                "textoSemFoto"
+            );
+
+
+        preview.onload =
+            function(){
+
+                preview.style.display =
+                    "block";
+
+                texto.style.display =
+                    "none";
+
+            };
+
+
+        preview.onerror =
+            function(){
+
+                console.error(
+                    "Não foi possível carregar a imagem."
+                );
+
+                texto.innerText =
+                    "⚠️ Imagem enviada, mas não abriu.";
+
+                texto.style.display =
+                    "block";
+
+                preview.style.display =
+                    "none";
+
+            };
+
+
+        preview.src =
+            publicUrl
+            +
+            "?t="
+            +
+            Date.now();
+
+
+        /*
+        =================================================
+        LIMPAR
+        =================================================
+        */
+
+        input.value =
+            "";
+
+
+        mostrarStatus(
+            "✅ FOTO ENVIADA E SALVA COM SUCESSO!",
+            "sucesso"
+        );
+
+
+        alert(
+            "✅ Foto enviada com sucesso!"
+        );
+
+
+        console.log(
+            "UPLOAD FINALIZADO COM SUCESSO."
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "================================="
+        );
+
+        console.error(
+            "ERRO NO UPLOAD"
+        );
+
+        console.error(
+            error
+        );
+
+        console.error(
+            "================================="
+        );
+
+
+        mostrarStatus(
+            "❌ ERRO AO ENVIAR FOTO:\n\n"
+            +
+            error.message,
+            "erro"
+        );
+
+
+        alert(
+            "❌ ERRO AO ENVIAR FOTO:\n\n"
+            +
+            error.message
+        );
+
+    }
+
+    finally{
+
+        botao.disabled =
+            false;
+
+
+        botao.innerText =
+            "⬆️ ENVIAR FOTO PRINCIPAL";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CARREGAR FOTO PRINCIPAL
+===================================================== */
+
+function carregarFotoPrincipal(){
+
+    if(!convite){
+
+        return;
+
+    }
+
+
+    const url =
+        convite.foto_principal
+        ||
+        convite.foto
+        ||
+        "";
+
+
+    console.log(
+        "Foto principal atual:",
+        url
+    );
+
+
+    if(!url){
+
+        return;
+
+    }
+
+
+    const preview =
+        document
+        .getElementById(
+            "previewPrincipal"
+        );
+
+
+    const texto =
+        document
+        .getElementById(
+            "textoSemFoto"
+        );
+
+
+    preview.onload =
+        function(){
+
+            preview.style.display =
+                "block";
+
+            texto.style.display =
+                "none";
+
+        };
+
+
+    preview.onerror =
+        function(){
+
+            preview.style.display =
+                "none";
+
+            texto.innerText =
+                "⚠️ Não foi possível carregar a imagem.";
+
+            texto.style.display =
+                "block";
+
+        };
+
+
+    preview.src =
+        url
+        +
+        (
+            url.includes("?")
+            ?
+            "&"
+            :
+            "?"
+        )
+        +
+        "t="
+        +
+        Date.now();
+
+}
+
+
+
+/* =====================================================
+   GALERIA UPLOAD
+===================================================== */
+
+async function uploadGaleria(){
+
+    const input =
+        document
+        .getElementById(
+            "arquivosGaleria"
+        );
+
+
+    const arquivos =
+        Array.from(
+            input.files
+        );
+
+
+    if(
+        arquivos.length === 0
+    ){
+
+        alert(
+            "Selecione pelo menos uma foto."
+        );
+
+        return;
+
+    }
+
+
+    if(!banco){
+
+        alert(
+            "Supabase não inicializado."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        mostrarStatus(
+            "⏳ Enviando fotos...",
+            "info"
+        );
+
+
+        let enviados =
+            0;
+
+
+        let erros =
+            0;
+
+
+        for(
+            const arquivo
+            of arquivos
+        ){
+
+            if(
+                !arquivo.type.startsWith(
+                    "image/"
+                )
+            ){
+
+                erros++;
+
+                continue;
+
+            }
+
+
+            const nomeSeguro =
+                arquivo.name
+                .replace(
+                    /[^a-zA-Z0-9._-]/g,
+                    "_"
+                );
+
+
+            const caminho =
+                "dudu-1-ano/"
+                +
+                Date.now()
+                +
+                "-"
+                +
+                enviados
+                +
+                "-"
+                +
+                nomeSeguro;
+
+
+            const resultado =
+                await banco
+
+                .storage
+
+                .from("galeria")
+
+                .upload(
+                    caminho,
+                    arquivo,
+                    {
+
+                        cacheControl:
+                            "3600",
+
+                        upsert:
+                            false,
+
+                        contentType:
+                            arquivo.type
+
+                    }
+                );
+
+
+            if(
+                resultado.error
+            ){
+
+                console.error(
+                    resultado.error
+                );
+
+                erros++;
+
+                continue;
+
+            }
+
+
+            enviados++;
+
+        }
+
+
+        input.value =
+            "";
+
+
+        await carregarGaleria();
+
+
+        mostrarStatus(
+            "✅ "
+            +
+            enviados
+            +
+            " foto(s) enviada(s)."
+            +
+            (
+                erros
+                ?
+                "\n⚠️ "
+                +
+                erros
+                +
+                " arquivo(s) não enviado(s)."
+                :
+                ""
+            ),
+            enviados
+            ?
+            "sucesso"
+            :
+            "erro"
+        );
+
+    }
+
+    catch(error){
+
+        mostrarStatus(
+            "❌ ERRO NA GALERIA:\n\n"
+            +
+            error.message,
+            "erro"
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CARREGAR GALERIA
+===================================================== */
+
+async function carregarGaleria(){
+
+    const lista =
+        document
+        .getElementById(
+            "listaGaleria"
+        );
+
+
+    lista.innerHTML =
+        "<p>⏳ Carregando galeria...</p>";
+
+
+    const resultado =
+        await banco
+
+        .storage
+
+        .from("galeria")
+
+        .list(
+            "dudu-1-ano",
+            {
+
+                limit:100,
+
+                sort:{
+                    column:"name",
+                    order:"asc"
+                }
+
+            }
+        );
+
+
+    console.log(
+        "Galeria:",
+        resultado
+    );
+
+
+    if(
+        resultado.error
+    ){
+
+        lista.innerHTML =
+            "<p>❌ Erro ao carregar galeria.</p>";
+
+        return;
+
+    }
+
+
+    const arquivos =
+        resultado.data
+        ||
+        [];
+
+
+    const imagens =
+        arquivos.filter(
+            arquivo => {
+
+                return /\.(jpg|jpeg|png|webp|gif)$/i
+                .test(
+                    arquivo.name
+                );
+
+            }
+        );
+
+
+    if(
+        imagens.length === 0
+    ){
+
+        lista.innerHTML =
+            "<p>Nenhuma foto enviada ainda.</p>";
+
+        return;
+
+    }
+
+
+    lista.innerHTML =
+        "";
+
+
+    imagens.forEach(
+        arquivo => {
+
+            const caminho =
+                "dudu-1-ano/"
+                +
+                arquivo.name;
+
+
+            const url =
+                banco
+
+                .storage
+
+                .from("galeria")
+
+                .getPublicUrl(
+                    caminho
+                )
+                .data
+                .publicUrl;
+
+
+            const div =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "arquivo";
+
+
+            const img =
+                document
+                .createElement(
+                    "img"
+                );
+
+
+            img.src =
+                url;
+
+
+            img.alt =
+                "";
+
+
+            const nome =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            nome.className =
+                "arquivo-nome";
+
+
+            nome.innerText =
+                arquivo.name;
+
+
+            const botao =
+                document
+                .createElement(
+                    "button"
+                );
+
+
+            botao.className =
+                "botao excluir";
+
+
+            botao.innerText =
+                "🗑️ Excluir";
+
+
+            botao.type =
+                "button";
+
+
+            botao.onclick =
+                function(){
+
+                    excluirGaleria(
+                        caminho
+                    );
+
+                };
+
+
+            div.appendChild(
+                img
+            );
+
+
+            div.appendChild(
+                nome
+            );
+
+
+            div.appendChild(
+                botao
+            );
+
+
+            lista.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   EXCLUIR GALERIA
+===================================================== */
+
+async function excluirGaleria(caminho){
+
+    if(
+        !confirm(
+            "Deseja realmente excluir esta foto?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const resultado =
+        await banco
+
+        .storage
+
+        .from("galeria")
+
+        .remove([
+            caminho
+        ]);
+
+
+    if(
+        resultado.error
+    ){
+
+        mostrarStatus(
+            "❌ Erro ao excluir:\n\n"
+            +
+            resultado.error.message,
+            "erro"
+        );
+
+        return;
+
+    }
+
+
+    await carregarGaleria();
+
+
+    mostrarStatus(
+        "✅ Foto excluída.",
+        "sucesso"
+    );
+
+}
+
+
+
+/* =====================================================
+   MÚSICA UPLOAD
+===================================================== */
+
+async function uploadMusica(){
+
+    const input =
+        document
+        .getElementById(
+            "arquivoMusica"
+        );
+
+
+    const arquivo =
+        input.files[0];
+
+
+    if(!arquivo){
+
+        alert(
+            "Selecione uma música."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        mostrarStatus(
+            "⏳ Enviando música...",
+            "info"
+        );
+
+
+        const nomeSeguro =
+            arquivo.name
+            .replace(
+                /[^a-zA-Z0-9._-]/g,
+                "_"
+            );
+
+
+        const caminho =
+            "dudu-1-ano/"
+            +
+            Date.now()
+            +
+            "-"
+            +
+            nomeSeguro;
+
+
+        const resultado =
+            await banco
+
+            .storage
+
+            .from("musicas")
+
+            .upload(
+                caminho,
+                arquivo,
+                {
+
+                    cacheControl:
+                        "3600",
+
+                    upsert:
+                        false,
+
+                    contentType:
+                        arquivo.type
+
+                }
+            );
+
+
+        if(
+            resultado.error
+        ){
+
+            throw resultado.error;
+
+        }
+
+
+        input.value =
+            "";
+
+
+        await carregarMusicas();
+
+
+        mostrarStatus(
+            "✅ Música enviada com sucesso!",
+            "sucesso"
+        );
+
+    }
+
+    catch(error){
+
+        mostrarStatus(
+            "❌ ERRO AO ENVIAR MÚSICA:\n\n"
+            +
+            error.message,
+            "erro"
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CARREGAR MÚSICAS
+===================================================== */
+
+async function carregarMusicas(){
+
+    const lista =
+        document
+        .getElementById(
+            "listaMusicas"
+        );
+
+
+    lista.innerHTML =
+        "<p>⏳ Carregando músicas...</p>";
+
+
+    const resultado =
+        await banco
+
+        .storage
+
+        .from("musicas")
+
+        .list(
+            "dudu-1-ano",
+            {
+                limit:50
+            }
+        );
+
+
+    if(
+        resultado.error
+    ){
+
+        lista.innerHTML =
+            "<p>❌ Erro ao carregar músicas.</p>";
+
+        return;
+
+    }
+
+
+    const arquivos =
+        resultado.data
+        ||
+        [];
+
+
+    const musicas =
+        arquivos.filter(
+            arquivo => {
+
+                return /\.(mp3|wav|ogg|m4a)$/i
+                .test(
+                    arquivo.name
+                );
+
+            }
+        );
+
+
+    if(
+        musicas.length === 0
+    ){
+
+        lista.innerHTML =
+            "<p>Nenhuma música enviada ainda.</p>";
+
+        return;
+
+    }
+
+
+    lista.innerHTML =
+        "";
+
+
+    musicas.forEach(
+        arquivo => {
+
+            const caminho =
+                "dudu-1-ano/"
+                +
+                arquivo.name;
+
+
+            const url =
+                banco
+
+                .storage
+
+                .from("musicas")
+
+                .getPublicUrl(
+                    caminho
+                )
+                .data
+                .publicUrl;
+
+
+            const div =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "musica-item";
+
+
+            const nome =
+                document
+                .createElement(
+                    "span"
+                );
+
+
+            nome.innerText =
+                "🎵 "
+                +
+                arquivo.name;
+
+
+            const audio =
+                document
+                .createElement(
+                    "audio"
+                );
+
+
+            audio.controls =
+                true;
+
+
+            audio.src =
+                url;
+
+
+            const botao =
+                document
+                .createElement(
+                    "button"
+                );
+
+
+            botao.className =
+                "botao excluir";
+
+
+            botao.innerText =
+                "🗑️";
+
+
+            botao.type =
+                "button";
+
+
+            botao.onclick =
+                function(){
+
+                    excluirMusica(
+                        caminho
+                    );
+
+                };
+
+
+            div.appendChild(
+                nome
+            );
+
+
+            div.appendChild(
+                audio
+            );
+
+
+            div.appendChild(
+                botao
+            );
+
+
+            lista.appendChild(
+                div
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   EXCLUIR MÚSICA
+===================================================== */
+
+async function excluirMusica(caminho){
+
+    if(
+        !confirm(
+            "Deseja realmente excluir esta música?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const resultado =
+        await banco
+
+        .storage
+
+        .from("musicas")
+
+        .remove([
+            caminho
+        ]);
+
+
+    if(
+        resultado.error
+    ){
+
+        mostrarStatus(
+            "❌ Erro ao excluir música:\n\n"
+            +
+            resultado.error.message,
+            "erro"
+        );
+
+        return;
+
+    }
+
+
+    await carregarMusicas();
+
+
+    mostrarStatus(
+        "✅ Música excluída.",
+        "sucesso"
+    );
+
+}
+
+
+
+/* =====================================================
+   VISUALIZAR CONVITE
+===================================================== */
+
+function visualizar(){
+
+    if(!convite){
+
+        alert(
+            "O convite ainda não foi carregado."
+        );
+
+        return;
+
+    }
+
+
+    window.open(
+        "index.html?convite=dudu-1-ano",
+        "_blank"
+    );
+
+}
+
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function mostrarStatus(
+    mensagem,
+    tipo
+){
+
+    const status =
+        document
+        .getElementById(
+            "status"
+        );
+
+
+    status.innerText =
+        mensagem;
+
+
+    status.className =
+        "";
+
+
+    if(
+        tipo === "erro"
+    ){
+
+        status.classList.add(
+            "status-erro"
+        );
+
+    }
+
+    else if(
+        tipo === "info"
+    ){
+
+        status.classList.add(
+            "status-info"
+        );
+
+    }
+
+    else{
+
+        status.classList.add(
+            "status-sucesso"
+        );
+
+    }
+
+
+    status.style.display =
+        "block";
+
+
+    if(
+        tipo === "sucesso"
+    ){
+
+        setTimeout(
+            function(){
+
+                status.style.display =
+                    "none";
+
+            },
+            5000
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   SAIR
+===================================================== */
+
+function sair(){
+
+    sessionStorage.removeItem(
+        "dudu_admin_logado"
+    );
+
+
+    convite =
+        null;
+
+
+    document
+    .getElementById("painel")
+    .style.display =
+        "none";
+
+
+    document
+    .getElementById("loginTela")
+    .style.display =
+        "flex";
+
+}
+
+
+
+/* =====================================================
+   AUTO LOGIN
+===================================================== */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        const logado =
+            sessionStorage.getItem(
+                "dudu_admin_logado"
+            );
+
+
+        if(
+            logado === "true"
+        ){
+
+            document
+            .getElementById("loginTela")
+            .style.display =
+                "none";
+
+
+            document
+            .getElementById("painel")
+            .style.display =
+                "block";
+
+
+            iniciar();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
+```
